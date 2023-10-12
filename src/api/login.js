@@ -10,7 +10,7 @@ export function login(username, password) {
     }
   })
 }
-
+// 动态路由由此进入
 export function getInfo(token) {
   return request({
     url: '/user/info',

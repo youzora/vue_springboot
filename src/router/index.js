@@ -499,11 +499,47 @@ export const constantRouterMap = [
         meta: { title: 'complexTable' }
       },
       {
-        path: 'TreeTable',
-        name: 'TreeTable',
-        component: () => import('@/views/table/tree-table/index'),
-        meta: { title: 'treeTable' }
+        path: 'student-info-table',
+        name: 'student-info-table',
+        component: () => import('@/views/table/complex-table'),
+        meta: { title: '学生信息管理' }
+      },
+      {
+        path: 'class-info-table',
+        name: 'class-info-table',
+        component: () => import('@/views/table/complex-table'),
+        meta: { title: '课程信息管理' }
+      },
+      {
+        path: 'score-entry-table',
+        name: 'score-entry-table',
+        component: () => import('@/views/table/complex-table'),
+        meta: { title: '成绩录入' }
+      },
+      {
+        path: 'score-query-table',
+        name: 'score-query-table',
+        component: () => import('@/views/table/complex-table'),
+        meta: { title: '成绩查询' }
+      },
+      {
+        path: 'score-count-table',
+        name: 'score-count-table',
+        component: () => import('@/views/table/complex-table'),
+        meta: { title: '成绩统计' }
+      },
+      {
+        path: 'score-ranking-table',
+        name: 'score-ranking-table',
+        component: () => import('@/views/table/complex-table'),
+        meta: { title: '成绩排名' }
       }
+      // {
+      //   path: 'TreeTable',
+      //   name: 'TreeTable',
+      //   component: () => import('@/views/table/tree-table/index'),
+      //   meta: { title: 'treeTable' }
+      // }
 
     ]
   },

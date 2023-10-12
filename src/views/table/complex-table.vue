@@ -27,9 +27,13 @@
 			</el-table-column>
 			<el-table-column prop="age" label="年龄" width="120">
 			</el-table-column>
-			<el-table-column prop="birth" label="生日" width="120">
-			</el-table-column>
 			<el-table-column prop="addr" label="地址" min-width="160">
+			</el-table-column>
+      <el-table-column prop="stu_id" label="学号" min-width="120">
+			</el-table-column>
+      <el-table-column prop="grade" label="年级" min-width="160">
+			</el-table-column>
+      <el-table-column prop="class" label="班级" min-width="160">
 			</el-table-column>
 			<el-table-column label="操作" width="150">
 				<template slot-scope="scope">
@@ -61,9 +65,9 @@
 				<el-form-item label="年龄">
 					<el-input-number v-model="editForm.age" :min="0" :max="200"></el-input-number>
 				</el-form-item>
-				<el-form-item label="生日">
+				<!-- <el-form-item label="生日">
 					<el-date-picker type="date" placeholder="选择日期" v-model="editForm.birth"></el-date-picker>
-				</el-form-item>
+				</el-form-item> -->
 				<el-form-item label="地址">
 					<el-input type="textarea" v-model="editForm.addr"></el-input>
 				</el-form-item>
