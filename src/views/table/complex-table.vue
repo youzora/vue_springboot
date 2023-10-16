@@ -27,13 +27,13 @@
 			</el-table-column>
 			<el-table-column prop="age" label="年龄" width="120">
 			</el-table-column>
-			<el-table-column prop="addr" label="地址" min-width="160">
+			<el-table-column prop="address" label="地址" min-width="160">
 			</el-table-column>
-      <el-table-column prop="stu_id" label="学号" min-width="120">
+      <el-table-column prop="stuNo" label="学号" min-width="120">
 			</el-table-column>
       <el-table-column prop="grade" label="年级" min-width="160">
 			</el-table-column>
-      <el-table-column prop="class" label="班级" min-width="160">
+      <el-table-column prop="squad" label="班级" min-width="160">
 			</el-table-column>
 			<el-table-column label="操作" width="150">
 				<template slot-scope="scope">
@@ -69,7 +69,16 @@
 					<el-date-picker type="date" placeholder="选择日期" v-model="editForm.birth"></el-date-picker>
 				</el-form-item> -->
 				<el-form-item label="地址">
-					<el-input type="textarea" v-model="editForm.addr"></el-input>
+					<el-input type="textarea" v-model="editForm.address"></el-input>
+				</el-form-item>
+        <el-form-item label="学号">
+					<el-input type="number" v-model="editForm.stuNo" :min="0" :max="200"></el-input>
+				</el-form-item>
+        <el-form-item label="年级">
+					<el-input type="textarea" v-model="editForm.grade"></el-input>
+				</el-form-item>
+        <el-form-item label="班级">
+					<el-input type="textarea" v-model="editForm.squad"></el-input>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
@@ -96,8 +105,8 @@ export default {
     return {
       dialogStatus: '',
       textMap: {
-        update: 'Edit',
-        create: 'Create'
+        update: '修改',
+        create: '创建'
       },
       dialogFormVisible: false,
       filters: {
@@ -116,8 +125,10 @@ export default {
         name: '',
         sex: 1,
         age: 0,
-        birth: '',
-        addr: ''
+        address: '',
+        stuNo:0,
+        grade:'',
+        squad:''
       },
 
       addFormVisible: false, // 新增界面是否显示
@@ -143,7 +154,7 @@ export default {
       }
       getUserListPage(para).then(res => {
         this.total = res.data.total
-        this.users = res.data.users
+        this.users = res.data
       })
     },
     // 删除
@@ -189,10 +200,10 @@ export default {
           this.$confirm('确认提交吗？', '提示', {})
             .then(() => {
               const para = Object.assign({}, this.editForm)
-              para.birth =
-                !para.birth || para.birth === ''
-                  ? ''
-                  : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd')
+              // para.birth =
+              //   !para.birth || para.birth === ''
+              //     ? ''
+              //     : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd')
               editUser(para).then(res => {
                 this.$message({
                   message: '提交成功',
