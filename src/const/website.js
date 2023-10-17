@@ -1,13 +1,13 @@
 export default {
-  title: '图书管理系统',
+  title: '成绩管理系统',
   logo: 'N',
   author: '',
   whiteList: ['/login', '/404', '/401', '/lock'],
   lockPage: '/lock',
   info: {
-    title: '图书管理系统',
+    title: '成绩管理系统',
     list: [
-      '图书管理系统是一个基于vue+springboot管理平台，采用token交互验证方式。'
+      '成绩管理系统是一个基于vue+springboot管理平台，采用token交互验证方式。'
     ]
   },
   wel: {

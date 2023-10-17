@@ -507,7 +507,7 @@ export const constantRouterMap = [
       {
         path: 'class-info-table',
         name: 'class-info-table',
-        component: () => import('@/views/table/complex-table'),
+        component: () => import('@/views/table/course-table'),
         meta: { title: '课程信息管理' }
       },
       {

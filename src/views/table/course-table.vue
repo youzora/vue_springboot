@@ -6,12 +6,6 @@
 				<el-form-item>
 					<el-input v-model="filters.name" placeholder="姓名"></el-input>
 				</el-form-item>
-        <el-form-item>
-					<el-input v-model="filters.address" placeholder="地址"></el-input>
-				</el-form-item>
-        <el-form-item>
-					<el-input v-model="filters.stuNo" placeholder="学号"></el-input>
-				</el-form-item>
 				<el-form-item>
 					<el-button type="primary" v-on:click="getUsers">查询</el-button>
 				</el-form-item>
@@ -27,20 +21,14 @@
 			</el-table-column>
 			<el-table-column type="index" width="60">
 			</el-table-column>
-			<el-table-column prop="name" label="姓名" width="120">
+			<el-table-column prop="name" label="名称" >
 			</el-table-column>
-			<el-table-column prop="sex" label="性别" width="120" :formatter="formatSex">
+			<el-table-column prop="courseCode" label="课程代码">
 			</el-table-column>
-			<el-table-column prop="age" label="年龄" width="120">
+			<el-table-column prop="creditHours" label="学分">
 			</el-table-column>
-			<el-table-column prop="address" label="地址" min-width="160">
-			</el-table-column>
-      <el-table-column prop="stuNo" label="学号" min-width="100">
-			</el-table-column>
-      <el-table-column prop="grade" label="年级" min-width="100">
-			</el-table-column>
-      <el-table-column prop="squad" label="班级" min-width="100">
-			</el-table-column>
+			<el-table-column prop="teacher" label="任课教师">
+      </el-table-column>  
 			<el-table-column label="操作" width="150">
 				<template slot-scope="scope">
 					<el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
@@ -61,32 +49,20 @@
 		<!--编辑界面-->
 		<el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" :close-on-click-modal="false">
 			<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-				<el-form-item label="姓名" prop="name">
+				<el-form-item label="名称" prop="name">
 					<el-input v-model="editForm.name" auto-complete="off"></el-input>
 				</el-form-item>
-				<el-form-item label="性别">
-					<el-radio-group v-model="editForm.sex">
-						<el-radio class="radio" :label=1>男</el-radio>
-						<el-radio class="radio" :label=0>女</el-radio>
-					</el-radio-group>
-				</el-form-item>
-				<el-form-item label="年龄">
-					<el-input-number v-model="editForm.age" :min="0" :max="200"></el-input-number>
+				<el-form-item label="课程代码">
+					<el-input-number v-model="editForm.courseCode" :min="0" :max="200"></el-input-number>
 				</el-form-item>
 				<!-- <el-form-item label="生日">
 					<el-date-picker type="date" placeholder="选择日期" v-model="editForm.birth"></el-date-picker>
 				</el-form-item> -->
-				<el-form-item label="地址">
-					<el-input type="textarea" v-model="editForm.address"></el-input>
+        <el-form-item label="学分">
+					<el-input type="number" v-model="editForm.creditHours" :min="0" :max="200"></el-input>
 				</el-form-item>
-        <el-form-item label="学号">
-					<el-input type="number" v-model="editForm.stuNo" :min="0" :max="200"></el-input>
-				</el-form-item>
-        <el-form-item label="年级">
-					<el-input type="textarea" v-model="editForm.grade"></el-input>
-				</el-form-item>
-        <el-form-item label="班级">
-					<el-input type="textarea" v-model="editForm.squad"></el-input>
+        <el-form-item label="任课教师">
+					<el-input type="textarea" v-model="editForm.teacher"></el-input>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
@@ -101,12 +77,12 @@
 <script>
 import util from '@/utils/table.js'
 import {
-  getUserListPage,
-  removeUser,
-  batchRemoveUser,
-  editUser,
-  addUser
-} from '@/api/userTable'
+  getCourseListPage,
+  removeCourse,
+  batchRemoveCourse,
+  editCourse,
+  addCourse
+} from '@/api/courseTable'
 
 export default {
   data() {
@@ -118,9 +94,7 @@ export default {
       },
       dialogFormVisible: false,
       filters: {
-        name: '',
-        address: '',
-        stuNo:''
+        name: ''
       },
       users: [],
       total: 0,
@@ -134,12 +108,9 @@ export default {
       editForm: {
         id: '0',
         name: '',
-        sex: 1,
-        age: 0,
-        address: '',
-        stuNo:0,
-        grade:'',
-        squad:''
+        courseCode: 0,
+        creditHours: '',
+        teacher:''
       },
 
       addFormVisible: false, // 新增界面是否显示
@@ -150,9 +121,9 @@ export default {
   },
   methods: {
     // 性别显示转换
-    formatSex: function(row, column) {
-      return row.sex === 1 ? '男' : row.sex === 0 ? '女' : '未知'
-    },
+    // formatSex: function(row, column) {
+    //   return row.sex === 1 ? '男' : row.sex === 0 ? '女' : '未知'
+    // },
     // 初始页currentPage、初始每页数据数pagesize和数据data
     handleSizeChange (size) {
       this.pagesize = size;
@@ -166,11 +137,9 @@ export default {
       const para = {
         page: this.page,
         size: this.size,
-        name: this.filters.name,
-        address: this.filters.address,
-        stuNo: this.filters.stuNo
+        name: this.filters.name
       }
-      getUserListPage(para).then(res => {
+      getCourseListPage(para).then(res => {
         this.total = res.data.total
         this.users = res.data.records
       })
@@ -182,7 +151,7 @@ export default {
       })
         .then(() => {
           const para = { id: row.id }
-          removeUser(para).then(res => {
+          removeCourse(para).then(res => {
             this.$message({
               message: '删除成功',
               type: 'success'
@@ -222,7 +191,7 @@ export default {
               //   !para.birth || para.birth === ''
               //     ? ''
               //     : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd')
-              editUser(para).then(res => {
+              editCourse(para).then(res => {
                 this.$message({
                   message: '提交成功',
                   type: 'success'
@@ -253,7 +222,7 @@ export default {
                 !para.birth || para.birth === ''
                   ? ''
                   : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd')
-              addUser(para).then(res => {
+              addCourse(para).then(res => {
                 this.$message({
                   message: '提交成功',
                   type: 'success'
@@ -282,7 +251,7 @@ export default {
       })
         .then(() => {
           const para = { ids: ids }
-          batchRemoveUser(para).then(res => {
+          batchRemoveCourse(para).then(res => {
             this.$message({
               message: '删除成功',
               type: 'success'
