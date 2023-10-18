@@ -11,9 +11,9 @@
       <!-- <error-log class="errLog-container right-menu-item"></error-log> -->
       <nx-help class="nx-help right-menu-item" />
       <nx-top-lock style="cursor:pointer" class="nx-help"></nx-top-lock>
-      <el-tooltip effect="dark" content="全屏" placement="bottom">
+      <!-- <el-tooltip effect="dark" content="全屏" placement="bottom">
         <nx-full-screen class="screenfull right-menu-item"></nx-full-screen>
-      </el-tooltip>
+      </el-tooltip> -->
 
       <!-- <lang-select class="international right-menu-item"></lang-select> -->
       <nx-lang-select class="international right-menu-item"></nx-lang-select>
@@ -25,7 +25,7 @@
 
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
-          <img class="user-avatar" src="https://mgbq.github.io/nx-admin-site/home.png">
+          <img class="user-avatar" src="https://pic1.zhimg.com/v2-0b83f86d9d3c38477a62425301a8af35_r.jpg?source=1940ef5c">
           <i class="el-icon-caret-bottom"></i>
         </div>
         <el-dropdown-menu slot="dropdown">

@@ -19,7 +19,7 @@ const user = {
     }) || '',
     browserHeaderTitle: getStore({
       name: 'browserHeaderTitle'
-    }) || 'NxAdmin'
+    }) || ''
   },
 
   mutations: {

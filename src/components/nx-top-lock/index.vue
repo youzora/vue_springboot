@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <span>
     <el-tooltip effect="dark" content="锁屏" placement="bottom">
     <i class="icon-bofangqi-suoping" @click="handleLock"></i>
@@ -14,7 +14,7 @@
       </span>
     </el-dialog>
   </span>
-</template>
+</template> -->
 
 <script>
 import { validatenull } from '@/utils/validate'

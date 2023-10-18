@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div>
     <el-tooltip effect="dark" placement="bottom">
       <div slot="content">
@@ -9,7 +9,7 @@
       </el-button>
     </el-tooltip>
   </div>
-</template>
+</template> -->
 
 <script>
 import nxIcon from '@/components/nx-icon'

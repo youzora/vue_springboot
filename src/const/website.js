@@ -1,6 +1,6 @@
 export default {
   title: '成绩管理系统',
-  logo: 'N',
+  logo: '',
   author: '',
   whiteList: ['/login', '/404', '/401', '/lock'],
   lockPage: '/lock',
