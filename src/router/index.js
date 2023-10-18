@@ -513,7 +513,7 @@ export const constantRouterMap = [
       {
         path: 'score-entry-table',
         name: 'score-entry-table',
-        component: () => import('@/views/table/complex-table'),
+        component: () => import('@/views/table/score-entry-table'),
         meta: { title: '成绩录入' }
       },
       {
