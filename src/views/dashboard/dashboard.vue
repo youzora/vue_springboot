@@ -20,8 +20,8 @@
     <div class="item">
       <h4>带数字的展示</h4>
       <nx-data-icons :option="easyDataOption1"></nx-data-icons>
-    </div>
-    <div class="item">
+    </div> -->
+    <!-- <div class="item">
       <h4>简易展示</h4>
       <nx-data-icons :option="easyDataOption2"></nx-data-icons>
     </div> -->
@@ -35,6 +35,9 @@ import nxDataCard from '@/components/nx-data-card/nx-data-card'
 import nxDataTabs from '@/components/nx-data-tabs/nx-data-tabs'
 import nxDataIcons from '@/components/nx-data-icons/nx-data-icons'
 import nxGithubCorner from '@/components/nx-github-corner'
+import {
+  getCount
+} from '@/api/dashborad'
 export default {
   name: 'report',
   components: {
@@ -207,9 +210,21 @@ export default {
       }
     }
   },
+  methods: {
+    // 获取实时数据
+    getData() {
+      
+      getCount().then(res => {
+        res.data.map((item, index) => {
+          this.$set(this.option.data, index, item)})
+      })
+    }
+  },
   created() {},
   watch: {},
-  mounted() {},
+  mounted() {
+    this.getData()
+  },
   computed: {}
 }
 </script>
