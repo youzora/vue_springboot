@@ -402,36 +402,36 @@ export const constantRouterMap = [
   //   ]
   // },
   // 表单
-  {
-    path: '/form',
-    component: Layout,
-    redirect: '/form/BaseForm',
-    name: 'form',
-    meta: {
-      title: 'form',
-      icon: 'form'
-    },
-    children: [
-      {
-        path: 'BaseForm',
-        name: 'BaseForm',
-        component: () => import('@/views/form/BaseForm'),
-        meta: { title: 'BaseForm' }
-      },
-      {
-        path: 'VueEditor',
-        name: 'VueEditor',
-        component: () => import('@/views/form/VueEditor'),
-        meta: { title: 'VueEditor' }
-      },
-      {
-        path: 'Upload',
-        name: 'Upload',
-        component: () => import('@/views/form/Upload'),
-        meta: { title: 'Upload' }
-      }
-    ]
-  },
+  // {
+  //   path: '/form',
+  //   component: Layout,
+  //   redirect: '/form/BaseForm',
+  //   name: 'form',
+  //   meta: {
+  //     title: 'form',
+  //     icon: 'form'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'BaseForm',
+  //       name: 'BaseForm',
+  //       component: () => import('@/views/form/BaseForm'),
+  //       meta: { title: 'BaseForm' }
+  //     },
+  //     {
+  //       path: 'VueEditor',
+  //       name: 'VueEditor',
+  //       component: () => import('@/views/form/VueEditor'),
+  //       meta: { title: 'VueEditor' }
+  //     },
+  //     {
+  //       path: 'Upload',
+  //       name: 'Upload',
+  //       component: () => import('@/views/form/Upload'),
+  //       meta: { title: 'Upload' }
+  //     }
+  //   ]
+  // },
   // 右菜单
   // {
   //   path: '/contextmenu',
@@ -492,12 +492,12 @@ export const constantRouterMap = [
       icon: 'table'
     },
     children: [
-      {
-        path: 'complex-table',
-        name: 'complex-table',
-        component: () => import('@/views/table/complex-table'),
-        meta: { title: 'complexTable' }
-      },
+      // {
+      //   path: 'complex-table',
+      //   name: 'complex-table',
+      //   component: () => import('@/views/table/complex-table'),
+      //   meta: { title: 'complexTable' }
+      // },
       {
         path: 'student-info-table',
         name: 'student-info-table',
@@ -531,8 +531,8 @@ export const constantRouterMap = [
       {
         path: 'score-ranking-table',
         name: 'score-ranking-table',
-        component: () => import('@/views/table/complex-table'),
-        meta: { title: '成绩排名' }
+        component: () => import('@/views/table/score-ranking-table'),
+        meta: { title: '课程绑定' }
       }
       // {
       //   path: 'TreeTable',
