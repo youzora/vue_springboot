@@ -7,9 +7,6 @@
 					<el-input v-model="filters.name" placeholder="姓名"></el-input>
 				</el-form-item>
         <el-form-item>
-					<el-input v-model="filters.address" placeholder="地址"></el-input>
-				</el-form-item>
-        <el-form-item>
 					<el-input v-model="filters.stuNo" placeholder="学号"></el-input>
 				</el-form-item>
 				<el-form-item>
@@ -37,11 +34,11 @@
 			</el-table-column>
       <el-table-column prop="squad" label="班级" min-width="100">
 			</el-table-column>
-      <el-table-column prop="squad" label="平时分" min-width="30">
+      <el-table-column prop="usualScore" label="平时分" min-width="30">
 			</el-table-column>
-      <el-table-column prop="squad" label="期末分" min-width="30">
+      <el-table-column prop="finalScore" label="期末分" min-width="30">
 			</el-table-column>
-      <el-table-column prop="squad" label="总成绩" min-width="30">
+      <el-table-column prop="totalScore" label="总成绩" min-width="30">
 			</el-table-column>
 			<el-table-column label="操作" width="150">
 				<template slot-scope="scope">
@@ -63,33 +60,35 @@
 		<!--编辑界面-->
 		<el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" :close-on-click-modal="false">
 			<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-				<el-form-item label="姓名" prop="name">
-					<el-input v-model="editForm.name" auto-complete="off"></el-input>
-				</el-form-item>
-				<el-form-item label="性别">
-					<el-radio-group v-model="editForm.sex">
-						<el-radio class="radio" :label=1>男</el-radio>
-						<el-radio class="radio" :label=0>女</el-radio>
-					</el-radio-group>
-				</el-form-item>
-				<el-form-item label="年龄">
-					<el-input-number v-model="editForm.age" :min="0" :max="200"></el-input-number>
-				</el-form-item>
-				<!-- <el-form-item label="生日">
-					<el-date-picker type="date" placeholder="选择日期" v-model="editForm.birth"></el-date-picker>
-				</el-form-item> -->
-				<el-form-item label="地址">
-					<el-input type="textarea" v-model="editForm.address"></el-input>
+				<el-form-item label="姓名"  prop="name">
+					<el-input v-model="editForm.name" :disabled="true" auto-complete="off"></el-input>
 				</el-form-item>
         <el-form-item label="学号">
-					<el-input type="number" v-model="editForm.stuNo" :min="0" :max="200"></el-input>
+					<el-input type="number" v-model="editForm.stuNo" :disabled="true" :min="0" :max="200"></el-input>
 				</el-form-item>
-        <el-form-item label="年级">
-					<el-input type="textarea" v-model="editForm.grade"></el-input>
-				</el-form-item>
-        <el-form-item label="班级">
-					<el-input type="textarea" v-model="editForm.squad"></el-input>
-				</el-form-item>
+        <el-form-item label="课程名称">
+        <el-select
+          v-model="value"
+          placeholder="选择课程"
+          clearable
+          filterable
+          style="width: 170px" @change="$forceUpdate()"
+        >
+          <el-option
+            v-for="item in proOptions"
+            :key="item.id"
+            :label="item.name"
+            :value="item.courseCode"
+          >
+          </el-option>
+       </el-select>
+      </el-form-item>
+      <el-form-item label="平时分">
+					<el-input type="number" v-model="editForm.stuNo"  :min="0" :max="100"></el-input>
+			</el-form-item>
+      <el-form-item label="期末分">
+					<el-input type="number" v-model="editForm.stuNo"  :min="0" :max="100"></el-input>
+			</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
 			 <el-button @click.native="dialogFormVisible=false">取消</el-button>
@@ -107,12 +106,14 @@ import {
   removeUser,
   batchRemoveUser,
   editUser,
-  addUser
+  addUser,
+  getProcessSelectList
 } from '@/api/userTable'
 
 export default {
   data() {
     return {
+      proOptions: [],
       dialogStatus: '',
       textMap: {
         update: '修改',
@@ -143,7 +144,6 @@ export default {
         grade:'',
         squad:''
       },
-
       addFormVisible: false, // 新增界面是否显示
       addFormRules: {
         name: [{ required: true, message: '请输入姓名', trigger: 'blur' }]
@@ -293,10 +293,21 @@ export default {
           })
         })
         .catch(() => {})
+    },
+    getproKey() {
+      this.loading = true;
+      getProcessSelectList().then((response) => {
+          this.proOptions = response.data;
+          //console.log(this.proOptions);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   },
   mounted() {
-    this.getUsers()
+    this.getUsers(),
+    this.getproKey()
   }
 }
 </script>

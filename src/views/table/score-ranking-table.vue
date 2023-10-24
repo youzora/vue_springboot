@@ -29,22 +29,23 @@
 			</el-table-column>
 			<el-table-column prop="name" label="姓名" width="120">
 			</el-table-column>
-			<el-table-column prop="sex" label="性别" width="120" :formatter="formatSex">
-			</el-table-column>
-			<el-table-column prop="age" label="年龄" width="120">
-			</el-table-column>
-			<el-table-column prop="address" label="地址" min-width="160">
-			</el-table-column>
+			<!-- <el-table-column prop="sex" label="性别" width="120" :formatter="formatSex">
+			</el-table-column> -->
       <el-table-column prop="stuNo" label="学号" min-width="100">
 			</el-table-column>
       <el-table-column prop="grade" label="年级" min-width="100">
 			</el-table-column>
       <el-table-column prop="squad" label="班级" min-width="100">
 			</el-table-column>
-			<el-table-column label="操作" width="250">
+      <el-table-column prop="usualScore" label="平时分" min-width="30">
+			</el-table-column>
+      <el-table-column prop="finalScore" label="期末分" min-width="30">
+			</el-table-column>
+      <el-table-column prop="totalScore" label="总成绩" min-width="30">
+			</el-table-column>
+			<el-table-column label="操作" width="150">
 				<template slot-scope="scope">
 					<el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-button size="small" @click="handleBand(scope.$index, scope.row)">绑定课程</el-button>
 					<el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>
 				</template>
 			</el-table-column>
@@ -81,7 +82,7 @@
 					<el-input type="textarea" v-model="editForm.address"></el-input>
 				</el-form-item>
         <el-form-item label="学号">
-					<el-input type="number" v-model="editForm.stuNo" :min="0" :max="2000"></el-input>
+					<el-input type="number" v-model="editForm.stuNo" :min="0" :max="200"></el-input>
 				</el-form-item>
         <el-form-item label="年级">
 					<el-input type="textarea" v-model="editForm.grade"></el-input>
@@ -96,19 +97,6 @@
         <el-button v-else type="primary" @click="updateData">修改</el-button>
 			</div>
 		</el-dialog>
-
-    <!--绑定界面-->
-		<el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogBandFormVisible" :close-on-click-modal="false">
-			<el-form :model="bandForm" label-width="80px" ref="bandForm">
-				<el-form-item label="课程代码" prop="courseCode">
-					<el-input v-model="bandForm.courseCode" auto-complete="off"></el-input>
-				</el-form-item>
-			</el-form>
-			<div slot="footer" class="dialog-footer">
-			 <el-button @click.native="dialogBandFormVisible=false">取消</el-button>
-        <el-button type="primary" @click="bandData">绑定</el-button>
-			</div>
-		</el-dialog>
 	</section>
 </template>
 
@@ -119,7 +107,6 @@ import {
   removeUser,
   batchRemoveUser,
   editUser,
-  bandUser,
   addUser
 } from '@/api/userTable'
 
@@ -129,11 +116,9 @@ export default {
       dialogStatus: '',
       textMap: {
         update: '修改',
-        create: '创建',
-        banding: '绑定'
+        create: '创建'
       },
       dialogFormVisible: false,
-      dialogBandFormVisible: false,
       filters: {
         name: '',
         address: '',
@@ -158,11 +143,7 @@ export default {
         grade:'',
         squad:''
       },
-      // 课程界面数据
-      bandForm:{
-        id: '0',
-        courseCode:''
-      },
+
       addFormVisible: false, // 新增界面是否显示
       addFormRules: {
         name: [{ required: true, message: '请输入姓名', trigger: 'blur' }]
@@ -219,12 +200,6 @@ export default {
       this.dialogFormVisible = true
       this.editForm = Object.assign({}, row)
     },
-    // 显示绑定界面
-    handleBand(index, row) {
-      this.dialogStatus = 'band'
-      this.dialogBandFormVisible = true
-      this.bandForm = Object.assign({}, row)
-    },
     // 显示新增界面
     handleAdd() {
       this.dialogStatus = 'create'
@@ -256,34 +231,6 @@ export default {
                 })
                 this.$refs['editForm'].resetFields()
                 this.dialogFormVisible = false
-                this.getUsers()
-              })
-            })
-            .catch(e => {
-              // 打印一下错误
-              console.log(e)
-            })
-        }
-      })
-    },
-    // 绑定课程
-    bandData() {
-      this.$refs.bandForm.validate(valid => {
-        if (valid) {
-          this.$confirm('确认提交吗？', '提示', {})
-            .then(() => {
-              const para = Object.assign({}, this.bandForm)
-              // para.birth =
-              //   !para.birth || para.birth === ''
-              //     ? ''
-              //     : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd')
-              bandUser(para).then(res => {
-                this.$message({
-                  message: '提交成功',
-                  type: 'success'
-                })
-                this.$refs['bandForm'].resetFields()
-                this.dialogBandFormVisible = false
                 this.getUsers()
               })
             })

@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getUserListPage(params) {
   return request({
-    url: '/user/listpage',
+    url: '/score/listpage',
     method: 'get',
     params: params
   })
@@ -28,6 +28,13 @@ export function editUser(params) {
     params: params
   })
 }
+export function bandUser(params) {
+  return request({
+    url: '/user/band',
+    method: 'get',
+    params: params
+  })
+}
 export function addUser(params) {
   return request({
     url: '/user/add',
@@ -35,3 +42,11 @@ export function addUser(params) {
     params: params
   })
 }
+export function getProcessSelectList(params) {
+  return request({
+    url: '/course/getProcessSelectList',
+    method: 'get',
+    params: params
+  })
+}
+
