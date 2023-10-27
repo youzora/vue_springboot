@@ -13,7 +13,7 @@
 					<el-button type="primary" v-on:click="getUsers">查询</el-button>
 				</el-form-item>
 				<el-form-item>
-					<el-button type="primary" @click="handleAdd">新增</el-button>
+					<el-button type="primary" @click="handleAdd">录入</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
@@ -26,13 +26,15 @@
 			</el-table-column>
 			<el-table-column prop="name" label="姓名" width="120">
 			</el-table-column>
-			<el-table-column prop="sex" label="性别" width="120" :formatter="formatSex">
-			</el-table-column>
       <el-table-column prop="stuNo" label="学号" min-width="100">
 			</el-table-column>
       <el-table-column prop="grade" label="年级" min-width="100">
 			</el-table-column>
       <el-table-column prop="squad" label="班级" min-width="100">
+			</el-table-column>
+      <el-table-column prop="courseName" label="课程名称" min-width="100">
+			</el-table-column>
+      <el-table-column prop="teacher" label="教师" min-width="100">
 			</el-table-column>
       <el-table-column prop="usualScore" label="平时分" min-width="30">
 			</el-table-column>
@@ -68,11 +70,12 @@
 				</el-form-item>
         <el-form-item label="课程名称">
         <el-select
-          v-model="value"
+          v-model="editForm.courseName"
           placeholder="选择课程"
           clearable
           filterable
           style="width: 170px" @change="$forceUpdate()"
+          :disabled="true"
         >
           <el-option
             v-for="item in proOptions"
@@ -84,14 +87,50 @@
        </el-select>
       </el-form-item>
       <el-form-item label="平时分">
-					<el-input type="number" v-model="editForm.stuNo"  :min="0" :max="100"></el-input>
+					<el-input type="number" v-model="editForm.usualScore"  :min="0" :max="100"></el-input>
 			</el-form-item>
       <el-form-item label="期末分">
-					<el-input type="number" v-model="editForm.stuNo"  :min="0" :max="100"></el-input>
+					<el-input type="number" v-model="editForm.finalScore"  :min="0" :max="100"></el-input>
 			</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
 			 <el-button @click.native="dialogFormVisible=false">取消</el-button>
+			  <el-button v-if="dialogStatus=='create'" type="primary" @click="createData">添加</el-button>
+        <el-button v-else type="primary" @click="updateData">修改</el-button>
+			</div>
+		</el-dialog>
+    <!--新增界面-->
+		<el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogAddFormVisible" :close-on-click-modal="false">
+			<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
+        <el-form-item label="学号">
+					<el-input type="number" v-model="editForm.stuNo" :min="0" :max="200"></el-input>
+				</el-form-item>
+        <el-form-item label="课程名称">
+        <el-select
+          v-model="editForm.courseId"
+          placeholder="选择课程"
+          clearable
+          filterable
+          style="width: 170px" @change="$forceUpdate()"
+        >
+          <el-option
+            v-for="item in proOptions"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          >
+          </el-option>
+       </el-select>
+      </el-form-item>
+      <el-form-item label="平时分">
+					<el-input type="number" v-model="editForm.usualScore"  :min="0" :max="100"></el-input>
+			</el-form-item>
+      <el-form-item label="期末分">
+					<el-input type="number" v-model="editForm.finalScore"  :min="0" :max="100"></el-input>
+			</el-form-item>
+			</el-form>
+			<div slot="footer" class="dialog-footer">
+			 <el-button @click.native="dialogAddFormVisible=false">取消</el-button>
 			  <el-button v-if="dialogStatus=='create'" type="primary" @click="createData">添加</el-button>
         <el-button v-else type="primary" @click="updateData">修改</el-button>
 			</div>
@@ -103,16 +142,17 @@
 import util from '@/utils/table.js'
 import {
   getUserListPage,
-  removeUser,
-  batchRemoveUser,
-  editUser,
-  addUser,
-  getProcessSelectList
-} from '@/api/userTable'
+  getProcessSelectList,
+  entry,
+  editScore,
+  deleteScore,
+  batchRemoveScore
+} from '@/api/score'
 
 export default {
   data() {
     return {
+      selectlevel:0,
       proOptions: [],
       dialogStatus: '',
       textMap: {
@@ -120,9 +160,9 @@ export default {
         create: '创建'
       },
       dialogFormVisible: false,
+      dialogAddFormVisible: false,
       filters: {
         name: '',
-        address: '',
         stuNo:''
       },
       users: [],
@@ -137,12 +177,10 @@ export default {
       editForm: {
         id: '0',
         name: '',
-        sex: 1,
-        age: 0,
-        address: '',
+        courseId:'0',
         stuNo:0,
-        grade:'',
-        squad:''
+        usualScore:'',
+        finalScore:''
       },
       addFormVisible: false, // 新增界面是否显示
       addFormRules: {
@@ -184,7 +222,7 @@ export default {
       })
         .then(() => {
           const para = { id: row.id }
-          removeUser(para).then(res => {
+          deleteScore(para).then(res => {
             this.$message({
               message: '删除成功',
               type: 'success'
@@ -203,14 +241,14 @@ export default {
     // 显示新增界面
     handleAdd() {
       this.dialogStatus = 'create'
-      this.dialogFormVisible = true
+      this.dialogAddFormVisible = true
       this.editForm = {
         id: '0',
         name: '',
-        sex: 1,
-        age: 0,
-        birth: '',
-        addr: ''
+        courseCode: '',
+        stuNo:'',
+        usualScore:'',
+        finalScore:''
       }
     },
     // 编辑
@@ -224,7 +262,7 @@ export default {
               //   !para.birth || para.birth === ''
               //     ? ''
               //     : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd')
-              editUser(para).then(res => {
+              editScore(para).then(res => {
                 this.$message({
                   message: '提交成功',
                   type: 'success'
@@ -250,18 +288,13 @@ export default {
               this.editForm.id = (parseInt(Math.random() * 100)).toString() // mock a id
               const para = Object.assign({}, this.editForm)
               console.log(para)
-
-              para.birth =
-                !para.birth || para.birth === ''
-                  ? ''
-                  : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd')
-              addUser(para).then(res => {
+              entry(para).then(res => {
                 this.$message({
                   message: '提交成功',
                   type: 'success'
                 })
                 this.$refs['editForm'].resetFields()
-                this.dialogFormVisible = false
+                this.dialogAddFormVisible = false
                 this.getUsers()
               })
             })
@@ -284,7 +317,7 @@ export default {
       })
         .then(() => {
           const para = { ids: ids }
-          batchRemoveUser(para).then(res => {
+          batchRemoveScore(para).then(res => {
             this.$message({
               message: '删除成功',
               type: 'success'

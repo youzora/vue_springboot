@@ -2,44 +2,48 @@ import request from '@/utils/request'
 
 export function getUserListPage(params) {
   return request({
-    url: '/user/listpage',
+    url: '/score/listpage',
     method: 'get',
     params: params
   })
 }
-export function removeUser(params) {
+export function getProcessSelectList(params) {
   return request({
-    url: '/user/remove',
+    url: '/course/getProcessSelectList',
     method: 'get',
     params: params
   })
 }
-export function batchRemoveUser(params) {
+
+export function entry(params) {
   return request({
-    url: '/user/batchremove',
+    url: '/score/entry',
     method: 'get',
     params: params
   })
 }
-export function editUser(params) {
+
+export function editScore(params) {
   return request({
-    url: '/user/edit',
+    url: '/score/editScore',
     method: 'get',
     params: params
   })
 }
-export function bandUser(params) {
+
+export function deleteScore(params) {
   return request({
-    url: '/user/band',
+    url: '/score/deleteScore',
     method: 'get',
     params: params
   })
 }
-export function addUser(params) {
+export function batchRemoveScore(params) {
   return request({
-    url: '/user/add',
+    url: '/score/batchRemoveScore',
     method: 'get',
     params: params
   })
 }
+
 
