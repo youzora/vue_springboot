@@ -519,21 +519,16 @@ export const constantRouterMap = [
       {
         path: 'score-query-table',
         name: 'score-query-table',
-        component: () => import('@/views/table/complex-table'),
+        component: () => import('@/views/table/score-inquiry-table'),
         meta: { title: '成绩查询' }
-      },
-      {
-        path: 'score-count-table',
-        name: 'score-count-table',
-        component: () => import('@/views/table/complex-table'),
-        meta: { title: '成绩统计' }
-      },
-      {
-        path: 'score-ranking-table',
-        name: 'score-ranking-table',
-        component: () => import('@/views/table/score-ranking-table'),
-        meta: { title: '课程绑定' }
       }
+      // {
+      //   path: 'score-count-table',
+      //   name: 'score-count-table',
+      //   component: () => import('@/views/table/complex-table'),
+      //   meta: { title: '成绩统计' }
+      // }
+      // }
       // {
       //   path: 'TreeTable',
       //   name: 'TreeTable',
