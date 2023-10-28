@@ -371,20 +371,20 @@ export const constantRouterMap = [
   //   ]
   // },
   // 表格
-  {
-    path: '/Tabs',
-    component: Layout,
-    redirect: 'Tabs',
-    meta: { title: 'Tabs', icon: 'tab' },
-    children: [
-      {
-        path: 'Tabs',
-        name: 'Tabs',
-        component: () => import('@/views/table/Tabs'),
-        meta: { title: 'Tabs', icon: 'tab' }
-      }
-    ]
-  },
+  // {
+  //   path: '/Tabs',
+  //   component: Layout,
+  //   redirect: 'Tabs',
+  //   meta: { title: 'Tabs', icon: 'tab' },
+  //   children: [
+  //     {
+  //       path: 'Tabs',
+  //       name: 'Tabs',
+  //       component: () => import('@/views/table/Tabs'),
+  //       meta: { title: 'Tabs', icon: 'tab' }
+  //     }
+  //   ]
+  // },
 
   // 滚动定位
   // {
@@ -482,46 +482,46 @@ export const constantRouterMap = [
   //   ]
   // },
   // 表格
-  {
-    path: '/table',
-    component: Layout,
-    redirect: '/table/complex-table',
-    name: 'table',
-    meta: {
-      title: 'Table',
-      icon: 'table'
-    },
-    children: [
+  // {
+  //   path: '/table',
+  //   component: Layout,
+  //   redirect: '/table/complex-table',
+  //   name: 'table',
+  //   meta: {
+  //     title: 'Table',
+  //     icon: 'table'
+  //   },
+  //   children: [
       // {
       //   path: 'complex-table',
       //   name: 'complex-table',
       //   component: () => import('@/views/table/complex-table'),
       //   meta: { title: 'complexTable' }
       // },
-      {
-        path: 'student-info-table',
-        name: 'student-info-table',
-        component: () => import('@/views/table/complex-table'),
-        meta: { title: '学生信息管理' }
-      },
-      {
-        path: 'class-info-table',
-        name: 'class-info-table',
-        component: () => import('@/views/table/course-table'),
-        meta: { title: '课程信息管理' }
-      },
-      {
-        path: 'score-entry-table',
-        name: 'score-entry-table',
-        component: () => import('@/views/table/score-entry-table'),
-        meta: { title: '成绩录入' }
-      },
-      {
-        path: 'score-query-table',
-        name: 'score-query-table',
-        component: () => import('@/views/table/score-inquiry-table'),
-        meta: { title: '成绩查询' }
-      }
+      // {
+      //   path: 'student-info-table',
+      //   name: 'student-info-table',
+      //   component: () => import('@/views/table/complex-table'),
+      //   meta: { title: '学生信息管理' }
+      // },
+      // {
+      //   path: 'class-info-table',
+      //   name: 'class-info-table',
+      //   component: () => import('@/views/table/course-table'),
+      //   meta: { title: '课程信息管理' }
+      // },
+      // {
+      //   path: 'score-entry-table',
+      //   name: 'score-entry-table',
+      //   component: () => import('@/views/table/score-entry-table'),
+      //   meta: { title: '成绩录入' }
+      // },
+      // {
+      //   path: 'score-query-table',
+      //   name: 'score-query-table',
+      //   component: () => import('@/views/table/score-inquiry-table'),
+      //   meta: { title: '成绩查询' }
+      // }
       // {
       //   path: 'score-count-table',
       //   name: 'score-count-table',
@@ -536,8 +536,8 @@ export const constantRouterMap = [
       //   meta: { title: 'treeTable' }
       // }
 
-    ]
-  },
+  //   ]
+  // },
   //
   // {
   //   path: '/excel',
@@ -603,35 +603,35 @@ export default new Router({
   routes: constantRouterMap
 })
 export const asyncRouterMap = [
-  {
-    path: '/permission',
-    component: Layout,
-    redirect: '/permission/page',
-    name: 'permission',
-    alwaysShow: true, // will always show the root menu
-    meta: {
-      title: 'permission',
-      icon: 'lock',
-      roles: ['admin', 'editor'] // you can set roles in root nav
-    },
-    children: [{
-      path: 'page',
-      component: () => import('@/views/permission/page'),
-      name: 'pagePermission',
-      meta: {
-        title: 'pagePermission',
-        roles: ['admin'] // or you can only set roles in sub nav
-      }
-    }, {
-      path: 'directive',
-      component: () => import('@/views/permission/directive'),
-      name: 'directivePermission',
-      meta: {
-        title: 'directivePermission'
-        // if do not set roles, means: this page does not require permission
-      }
-    }]
-  },
+  // {
+  //   path: '/permission',
+  //   component: Layout,
+  //   redirect: '/permission/page',
+  //   name: 'permission',
+  //   alwaysShow: true, // will always show the root menu
+  //   meta: {
+  //     title: 'permission',
+  //     icon: 'lock',
+  //     roles: ['admin'] // you can set roles in root nav
+  //   },
+  //   children: [{
+  //     path: 'page',
+  //     component: () => import('@/views/permission/page'),
+  //     name: 'pagePermission',
+  //     meta: {
+  //       title: 'pagePermission',
+  //       roles: ['admin'] // or you can only set roles in sub nav
+  //     }
+  //   }, {
+  //     path: 'directive',
+  //     component: () => import('@/views/permission/directive'),
+  //     name: 'directivePermission',
+  //     meta: {
+  //       title: 'directivePermission'
+  //       // if do not set roles, means: this page does not require permission
+  //     }
+  //   }]
+  // },
   // {
   //   path: '/error',
   //   component: Layout,
@@ -660,4 +660,63 @@ export const asyncRouterMap = [
   //     }
   //   ]
   // },
-  { path: '*', redirect: '/404', hidden: true }]
+  { path: '*', redirect: '/404', hidden: true },
+  {
+    path: '/Tabs',
+    component: Layout,
+    redirect: 'tabs',
+    name: 'tabs',
+    alwaysShow: true, // will always show the root menu
+    meta: {
+      title: 'Tabs',
+      icon: 'tab',
+      roles: ['admin'] // you can set roles in root nav
+    },
+    children: [{
+      
+        path: 'Tabs',
+        name: 'Tabs',
+        component: () => import('@/views/table/Tabs'),
+        meta: { title: 'Tabs', icon: 'tab', roles:['admin']}
+
+    }]
+  },
+  {
+    path: '/table',
+    component: Layout,
+    redirect: '/table/complex-table',
+    name: 'table',
+    alwaysShow: true, // will always show the root menu
+    meta: {
+      title: 'Table',
+      icon: 'table',
+      roles: ['admin','stu','teacher'] // you can set roles in root nav
+    },
+    children: [
+    {
+      path: 'student-info-table',
+      name: 'student-info-table',
+      component: () => import('@/views/table/complex-table'),
+      meta: { title: '学生信息管理' , roles:['admin']}
+    },
+    {
+      path: 'class-info-table',
+      name: 'class-info-table',
+      component: () => import('@/views/table/course-table'),
+      meta: { title: '课程信息管理' , roles:['admin','stu','teacher']}
+    },
+    {
+      path: 'score-entry-table',
+      name: 'score-entry-table',
+      component: () => import('@/views/table/score-entry-table'),
+      meta: { title: '成绩录入' , roles:['admin','teacher']}
+    },
+    {
+      path: 'score-query-table',
+      name: 'score-query-table',
+      component: () => import('@/views/table/score-inquiry-table'),
+      meta: { title: '成绩查询' , roles:['admin','stu','teacher']}
+    }
+  ]
+  }
+]

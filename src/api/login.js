@@ -11,11 +11,11 @@ export function login(username, password) {
   })
 }
 // 动态路由由此进入
-export function getInfo(token) {
+export function getInfo(id) {
   return request({
     url: '/user/info',
     method: 'get',
-    params: { token }
+    params: { id }
   })
 }
 

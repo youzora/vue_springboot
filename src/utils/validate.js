@@ -3,8 +3,8 @@
  */
 
 export function isvalidUsername(str) {
-  const valid_map = ['admin', 'editor']
-  return valid_map.indexOf(str.trim()) >= 0
+  const regex = /^\d{4}$/
+  return regex.test(str)
 }
 
 /* 合法uri*/

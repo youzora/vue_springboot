@@ -42,7 +42,7 @@ export default {
     }
     return {
       loginForm: {
-        username: 'admin',
+        username: '1000',
         password: '123456'
       },
       checked: false,
