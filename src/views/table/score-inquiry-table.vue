@@ -42,13 +42,13 @@
 		</el-table>
 
 		<!--工具条-->
-		<!-- <el-col :span="24" class="toolbar">
-			<el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">批量删除</el-button>
+		<el-col :span="24" class="toolbar">
+			<!-- <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">批量删除</el-button> -->
 			<el-pagination :current-page="page"
             :page-sizes="[10]"
             layout="prev, pager, next,sizes,jumper" @current-change="handleCurrentChange" @size-change="handleSizeChange" :page-size="size" :total="total" style="float:right;">
 			</el-pagination>
-		</el-col> -->
+		</el-col>
 
 		<!--编辑界面-->
 		<!-- <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" :close-on-click-modal="false">
